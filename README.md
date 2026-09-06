@@ -29,4 +29,4 @@ src/main/java/com/devanshu/taskmanager
 ├── controller
 ├── entity
 ├── repository
-└── service
+└── services
