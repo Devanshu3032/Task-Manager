@@ -26,7 +26,7 @@ A backend Task Manager application built using Java and Spring Boot.
 
 ```text
 src/main/java/com/devanshu/taskmanager
-├── controller
+├── controllers
 ├── entity
 ├── repository
 └── services
