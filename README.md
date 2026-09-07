@@ -30,3 +30,6 @@ src/main/java/com/devanshu/taskmanager
 ├── entity
 ├── repository
 └── services
+
+Now going to impelement the DTO (Data transfer object ) : use to transfer data through API . 
+DTO act like controlled doorway
