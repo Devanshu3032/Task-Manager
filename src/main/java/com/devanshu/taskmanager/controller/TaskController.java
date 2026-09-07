@@ -3,8 +3,9 @@ package com.devanshu.taskmanager.controller;
 import com.devanshu.taskmanager.entity.Task;
 import com.devanshu.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
-
+import com.devanshu.taskmanager.dto.TaskRequest;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -26,10 +27,19 @@ public class TaskController {
         return taskService.getTaskById(id);
     }
 
-    @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
-    }
+   @PostMapping
+public Task createTask(@Valid @RequestBody TaskRequest request) {
+
+    Task task = new Task();
+
+    task.setTitle(request.getTitle());
+    task.setDescription(request.getDescription());
+    task.setStatus(request.getStatus());
+    task.setPriority(request.getPriority());
+    task.setDueDate(request.getDueDate());
+
+    return taskService.createTask(task);
+}
 
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id,
