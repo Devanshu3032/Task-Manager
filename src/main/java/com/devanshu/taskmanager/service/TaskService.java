@@ -24,6 +24,10 @@ public class TaskService {
         return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found with id : " + id));
     }
 
+    public List<Task> getTasksByStatus(String status) {
+    return taskRepository.findByStatus(status);
+}
+
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
