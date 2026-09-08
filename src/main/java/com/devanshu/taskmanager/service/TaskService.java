@@ -4,7 +4,8 @@ import com.devanshu.taskmanager.entity.Task;
 import com.devanshu.taskmanager.exception.TaskNotFoundException;
 import com.devanshu.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort;
 import java.util.List;
 
 @Service
@@ -16,16 +17,26 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
+   public List<Task> getAllTasks(String sortBy, String direction) {
+
+    Sort sort = direction.equalsIgnoreCase("desc")
+            ? Sort.by(sortBy).descending()
+            : Sort.by(sortBy).ascending();
+
+    return taskRepository.findAll(sort);
+}
 
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found with id : " + id));
     }
 
-    public List<Task> getTasksByStatus(String status) {
-    return taskRepository.findByStatus(status);
+ public List<Task> getTasksByStatus(String status, String sortBy, String direction) {
+
+    Sort sort = direction.equalsIgnoreCase("desc")
+            ? Sort.by(sortBy).descending()
+            : Sort.by(sortBy).ascending();
+
+    return taskRepository.findByStatus(status, sort);
 }
 
     public Task createTask(Task task) {

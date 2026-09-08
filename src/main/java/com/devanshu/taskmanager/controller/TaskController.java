@@ -17,15 +17,17 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-  @GetMapping
+@GetMapping
 public List<Task> getAllTasks(
-        @RequestParam(required = false) String status) {
+        @RequestParam(required = false) String status,
+        @RequestParam(defaultValue = "id") String sortBy,
+        @RequestParam(defaultValue = "asc") String direction) {
 
     if (status != null) {
-        return taskService.getTasksByStatus(status);
+        return taskService.getTasksByStatus(status, sortBy, direction);
     }
 
-    return taskService.getAllTasks();
+    return taskService.getAllTasks(sortBy, direction);
 }
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
