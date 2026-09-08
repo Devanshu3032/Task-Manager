@@ -1,6 +1,7 @@
 package com.devanshu.taskmanager.service;
 
 import com.devanshu.taskmanager.entity.Task;
+import com.devanshu.taskmanager.exception.TaskNotFoundException;
 import com.devanshu.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id) {
-        return taskRepository.findById(id).orElse(null);
+        return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found with id : " + id));
     }
 
     public Task createTask(Task task) {
