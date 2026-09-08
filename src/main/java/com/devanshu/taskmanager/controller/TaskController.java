@@ -17,11 +17,16 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+  @GetMapping
+public List<Task> getAllTasks(
+        @RequestParam(required = false) String status) {
+
+    if (status != null) {
+        return taskService.getTasksByStatus(status);
     }
 
+    return taskService.getAllTasks();
+}
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
