@@ -5,6 +5,7 @@ import com.devanshu.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import com.devanshu.taskmanager.dto.TaskRequest;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import jakarta.validation.Valid;
 
 @RestController
@@ -18,16 +19,29 @@ public class TaskController {
     }
 
 @GetMapping
-public List<Task> getAllTasks(
+public Page<Task> getAllTasks(
         @RequestParam(required = false) String status,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
         @RequestParam(defaultValue = "id") String sortBy,
         @RequestParam(defaultValue = "asc") String direction) {
 
     if (status != null) {
-        return taskService.getTasksByStatus(status, sortBy, direction);
+        return taskService.getTasksByStatus(
+                status,
+                page,
+                size,
+                sortBy,
+                direction
+        );
     }
 
-    return taskService.getAllTasks(sortBy, direction);
+    return taskService.getAllTasks(
+            page,
+            size,
+            sortBy,
+            direction
+    );
 }
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {

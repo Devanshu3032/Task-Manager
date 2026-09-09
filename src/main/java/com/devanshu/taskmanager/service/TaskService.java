@@ -6,6 +6,10 @@ import com.devanshu.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import java.util.List;
 
 @Service
@@ -17,26 +21,39 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-   public List<Task> getAllTasks(String sortBy, String direction) {
+   public Page<Task> getAllTasks(
+        int page,
+        int size,
+        String sortBy,
+        String direction) {
 
     Sort sort = direction.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
             : Sort.by(sortBy).ascending();
 
-    return taskRepository.findAll(sort);
+    Pageable pageable = PageRequest.of(page, size, sort);
+
+    return taskRepository.findAll(pageable);
 }
 
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found with id : " + id));
     }
 
- public List<Task> getTasksByStatus(String status, String sortBy, String direction) {
+ public Page<Task> getTasksByStatus(
+        String status,
+        int page,
+        int size,
+        String sortBy,
+        String direction) {
 
     Sort sort = direction.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
             : Sort.by(sortBy).ascending();
 
-    return taskRepository.findByStatus(status, sort);
+    Pageable pageable = PageRequest.of(page, size, sort);
+
+    return taskRepository.findByStatus(status, pageable);
 }
 
     public Task createTask(Task task) {
