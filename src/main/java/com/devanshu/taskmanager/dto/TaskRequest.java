@@ -1,6 +1,7 @@
 package com.devanshu.taskmanager.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class TaskRequest {
 
@@ -10,10 +11,18 @@ public class TaskRequest {
     private String description;
 
     @NotBlank(message = "Status is required")
-    private String status;
+@Pattern(
+        regexp = "PENDING|IN_PROGRESS|COMPLETED",
+        message = "Status must be PENDING, IN_PROGRESS or COMPLETED"
+)
+private String status;
 
     @NotBlank(message = "Priority is required")
-    private String priority;
+@Pattern(
+        regexp = "LOW|MEDIUM|HIGH",
+        message = "Priority must be LOW, MEDIUM or HIGH"
+)
+private String priority;
 
     private String dueDate;
 
