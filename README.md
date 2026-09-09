@@ -241,6 +241,16 @@ Tested functionality includes:
 - Validation
 - Exception handling
 
+## Live API
+
+Base URL:
+
+https://task-manager-production-a3c5.up.railway.app
+
+Example:
+
+GET /api/tasks
+
 ## 🔐 Security Note
 
 Database credentials are stored using environment variables
