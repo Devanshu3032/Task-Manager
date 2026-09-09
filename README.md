@@ -70,7 +70,7 @@ src/main/java/com/devanshu/taskmanager
 
 ### 1. Clone the repository
 
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/Devanshu3032/Task-Manager.git
 
 ### 2. Open the project
 
